@@ -186,8 +186,8 @@
       ]
     },
     "/Users/akejufatai/Documents/codebase/mine/eth-blockchain-staking-app/smart-contract/contracts/RewardsSystem.sol": {
-      "lastModificationDate": 1647712338523,
-      "contentHash": "1de17801a581b7549904811ebf2b0cbb",
+      "lastModificationDate": 1647713873480,
+      "contentHash": "6dbfa8e1c4896d406d2d008586eacfcb",
       "sourceName": "contracts/RewardsSystem.sol",
       "solcConfig": {
         "version": "0.8.0",

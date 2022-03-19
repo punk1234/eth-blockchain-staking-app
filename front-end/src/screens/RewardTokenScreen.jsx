@@ -1,12 +1,19 @@
-import { useState } from "react";
-const ethers = require("ethers");
+import { ethers }  from "ethers";
+import { useEffect, useState } from "react";
+import TOKEN_ABI from "../abis/srt_abi.json";
+import REWARD_SYSTEM_ABI from "../abis/reward_system_abi.json";
 
 function RewardTokenScreen() {
+  const srtTokenContractAddress = "0x789683a80C3CeC065E8D3FD074c77BE9c01F10a6";
+  const rewardSystemContractAddress = "0xF5e4B140960DEC2fb8e519475A2189faa61EA5e0";
+
   const [stakedTokenValue, setStakedTokenValue] = useState();
   const [srtValueToStake, setSrtValueToStake] = useState();
   const [srtBalance, setSrtBalance] = useState();
   const [srtTransferValue, setSrtTransferValue] = useState();
   const [srtTransferTo, setSrtTransferTo] = useState();
+
+  const [walletAccount, setWalletAccount] = useState();
 
   const getStakedTokenValue = async (event) => {
     setStakedTokenValue(100);
@@ -25,10 +32,35 @@ function RewardTokenScreen() {
     setSrtTransferTo(100);
   }
 
+  const getContracts = () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      const tokenContract = new ethers.Contract(srtTokenContractAddress, TOKEN_ABI, signer);
+      const rewardContract = new ethers.Contract(rewardSystemContractAddress, REWARD_SYSTEM_ABI, signer);
+
+      return { tokenContract, rewardContract };
+  }
+
+  const connectWalletHandler = () => {
+    if(window.ethereum) {
+        window.ethereum.request({ method: "eth_requestAccounts"})
+            .then((result) => {
+                setWalletAccount(result[0])
+            });
+    }
+  }
+
+  useEffect(() => {
+    connectWalletHandler();
+  }, []);
+
   return (
     <div style={styles.container}>
         <h1 style={styles.screenTitle}>Reward Token Screen</h1>
         <div style={styles.tokenForm}>
+
+            <h2 style={styles.walletAccount}>{walletAccount || "WALLET NOT CONNECTED!!!"}</h2>
 
             <div style={styles.actionCard}>
                 <span style={styles.actionCardItem}>Number of Tokens staked</span>
@@ -118,6 +150,10 @@ const styles = {
         flex: 1,
         borderRadius: 15,
         backgroundColor: "red"
+    },
+    walletAccount: {
+        fontSize: 12,
+        textAlign: "center"
     }
 };
 
