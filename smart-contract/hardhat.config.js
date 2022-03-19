@@ -12,6 +12,10 @@ module.exports = {
         rinkeby: {
             url: API_URL,
             accounts: [`0x${PRIVATE_KEY}`]
+        },
+        kovan: {
+            url: API_URL,
+            accounts: [`0x${PRIVATE_KEY}`]
         }
     },
     etherscan: {

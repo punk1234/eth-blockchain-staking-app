@@ -76,4 +76,11 @@ contract RewardsSystem {
         return reward;
     }
 
+    function getStakedTokens() public view returns (uint) {
+        TokenInfo memory currentTokenInfo = accountsStakedTokens[msg.sender];
+
+        require(currentTokenInfo.exists, "Account has not staked any token!!!");
+        return currentTokenInfo.value;
+    }
+
 }
