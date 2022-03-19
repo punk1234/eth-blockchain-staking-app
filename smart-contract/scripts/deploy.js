@@ -1,7 +1,7 @@
 async function main() {
 
     /***********************************************************************
-     ************************ DEPLOY PUNK-TOKEN ****************************
+     ********************* DEPLOY STAKE-REWARD-TOKEN ***********************
      ***********************************************************************/
     const StakeRewardToken = await ethers.getContractFactory("StakeRewardToken");
     const srtContract = await StakeRewardToken.deploy();
@@ -9,7 +9,7 @@ async function main() {
     console.log(`Contract address => ${srtContract.address}`);
 
     /***********************************************************************
-     ************************ DEPLOY PUNK-TOKEN ****************************
+     ****************** DEPLOY REWARDS-SYSTEM CONTRACT *********************
      ***********************************************************************/
     const RewardsSystem = await ethers.getContractFactory("RewardsSystem");
     const rewardsSystemContract = await RewardsSystem.deploy(srtContract.address);
